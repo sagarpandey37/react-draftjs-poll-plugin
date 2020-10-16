@@ -1,0 +1,53 @@
+.poll-box {
+    width: 363px;
+}
+
+.poll-head {
+    color: #2F2F2F;
+    font-family: 'Nunito Sans';
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 700;
+}
+
+hr {
+    background-color: black;
+    height: 1px;
+    margin: 0px;
+}
+
+ul {
+    padding-left: 0px;
+}
+
+.pl-10 {
+    padding-left: 10px !important;
+}
+
+.mask {
+    background-color: #F4F4F4;
+    border-radius: 4px;
+    padding: 15px;
+    cursor: pointer;
+
+    input {
+        cursor: pointer;
+    }
+
+    &:hover,
+    &:checked {
+        background-color: #e31c79;
+
+        .option {
+            color: #fff;
+        }
+    }
+}
+
+.option {
+    color: #2F2F2F;
+    font-family: 'Nunito Sans';
+    font-size: 12px;
+    line-height: 16px;
+
+}

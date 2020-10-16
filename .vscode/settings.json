@@ -1,0 +1,33 @@
+{
+    "prettier.configPath": "./.prettierrc",
+    "editor.formatOnSave": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "jsx",
+      {
+        "language": "typescript",
+        "autoFix": true
+      },
+      {
+        "language": "jsx",
+        "autoFix": true
+      },
+      {
+        "language": "javascript",
+        "autoFix": true
+      },
+      {
+        "language": "typescriptreact",
+        "autoFix": true
+      }
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "launch": {
+      "configurations": [],
+      "compounds": []
+    },
+    "eslint.alwaysShowStatus": true
+  }

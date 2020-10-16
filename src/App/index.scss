@@ -1,0 +1,9 @@
+.row {
+    display: flex;
+    margin: 0 -15px;
+    flex-wrap: wrap;
+}
+
+.row_between {
+    justify-content: space-between;
+}
