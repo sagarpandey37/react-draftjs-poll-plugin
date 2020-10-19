@@ -1,4 +1,4 @@
-## A Custom DraftJS plugin for create a poll
+## A custom DraftJS plugin for create a poll
 
 ### Prerequisites
 
