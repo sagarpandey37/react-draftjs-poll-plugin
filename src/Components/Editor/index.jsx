@@ -26,7 +26,7 @@ class PollEditor extends React.Component {
     let newEditorState;
     const editorState = this.state.editorState
     const content = editorState.getCurrentContent();
-    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'IMMUTABLE' ,data);
+    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'MUTABLE' ,data);
     newEditorState = EditorState.set(editorState,{currentContent: contentWithEntity});
     newEditorState = RichUtils.toggleBlockType(newEditorState, 'DRAFT-JS-POLL');
     this.onChange(RichUtils.insertSoftNewline(newEditorState));
