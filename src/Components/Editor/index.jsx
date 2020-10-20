@@ -1,5 +1,5 @@
 import React from 'react';
-import {EditorState, RichUtils } from 'draft-js';
+import {EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor'
 import './index.scss'
 import PollModalPopups from '../pollModalPopup'
@@ -27,9 +27,10 @@ class PollEditor extends React.Component {
     const editorState = this.state.editorState
     const content = editorState.getCurrentContent();
     const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'MUTABLE' ,data);
+    const entityKey = contentWithEntity.getLastCreatedEntityKey();
     newEditorState = EditorState.set(editorState,{currentContent: contentWithEntity});
     newEditorState = RichUtils.toggleBlockType(newEditorState, 'DRAFT-JS-POLL');
-    this.onChange(RichUtils.insertSoftNewline(newEditorState));
+    this.onChange(AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '))
     this.setState({ showPollModal: false})
   };
 
