@@ -1,6 +1,6 @@
 import React from 'react';
-import {EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
-import Editor from 'draft-js-plugins-editor'
+import {Editor, EditorState, RichUtils, AtomicBlockUtils, convertToRaw } from 'draft-js';
+// import Editor from 'draft-js-plugins-editor'
 import './index.scss'
 import PollModalPopups from '../pollModalPopup'
 import DraftJSPoll from '../draftJSPoll'
@@ -18,7 +18,7 @@ class PollEditor extends React.Component {
   focus = () => this.refs.editor.focus()
 
   togglePopup = () => {
-    const { showPollModal } = this.state
+    const { showPollModal} = this.state
     this.setState({ showPollModal: !showPollModal })
   }
 
@@ -26,16 +26,16 @@ class PollEditor extends React.Component {
     let newEditorState;
     const editorState = this.state.editorState
     const content = editorState.getCurrentContent();
-    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'MUTABLE' ,data);
+    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'IMMUTABLE' , data);
     const entityKey = contentWithEntity.getLastCreatedEntityKey();
     newEditorState = EditorState.set(editorState,{currentContent: contentWithEntity});
-    newEditorState = RichUtils.toggleBlockType(newEditorState, 'DRAFT-JS-POLL');
-    this.onChange(AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '))
+    newEditorState = RichUtils.toggleBlockType(newEditorState, 'DRAFT-JS-POLL-BLOCK');
+    this.onChange(AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ''))
     this.setState({ showPollModal: false})
   };
 
   getBlockRender = (block) => {
-    if( block.getType() === 'DRAFT-JS-POLL' ){
+    if( block.getType() === 'DRAFT-JS-POLL-BLOCK' ){
       return {
         component: DraftJSPoll,
         editable: false,
@@ -46,6 +46,7 @@ class PollEditor extends React.Component {
 
   render() {
     const { showPollModal } = this.state
+
     return (
       <>
         {showPollModal && (

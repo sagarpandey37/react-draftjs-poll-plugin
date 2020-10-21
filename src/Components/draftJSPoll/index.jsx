@@ -1,41 +1,40 @@
-import React from "react";
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-tabs */
+import React, { useState } from "react";
 import "./index.scss";
 
-class DraftJSPoll extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          selectedValue: null,
-        };
+const DraftJSPoll = ({ contentState, block }) => {
+    const [data, setData] = useState({
+		selectedValue: null,
+	});
+
+    const handleChange = (event) => {
+        data.selectedValue = event.target.value
+        setData({ ...data });
     }
 
-    handleChange = (event) => {
-        this.setState({selectedValue: event.target.value});
-    }
+    const entityKey = contentState.getLastCreatedEntityKey();
+    const [currData] = useState(contentState.getEntity(entityKey).getData());
 
-    render() {
-    const { contentState } = this.props
-    const data = contentState.getEntity(contentState.getLastCreatedEntityKey()).getData()
     return (
         <>
         <div className="poll-box">
-            <p className="poll-head">{data.question}</p>
+            <p className="poll-head">{currData.question}</p>
             <div className="options">
                 {
-                    data.options.map((elem, idx) => (
+                    currData.options.map((elem, idx) => (
                     <ul key={idx}>
                         <div className="mask">
-                            <input type="radio" name="poll" value={elem.value} onChange={this.handleChange} /> 
+                            <input type="radio" name={`poll-${block.getKey()}`} value={elem.value} onChange={(e) => handleChange(e)} /> 
                             <span className="option pl-10">{elem.value}</span>
                         </div>
                     </ul>
-                    ) )
+                    ))
                 }
             </div>
         </div>
         </>
      )
     }
-}
 
 export default DraftJSPoll
