@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import ModalContainer from '../modalContainer'
 import './index.scss'
+import _ from 'lodash'
 
 const PollModalPopups = ({ visible, toggleVisible, handleSubmit }) => {
 	const [data, setData] = useState({
