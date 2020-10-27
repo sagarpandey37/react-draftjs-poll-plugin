@@ -2,13 +2,15 @@
 /* eslint-disable no-tabs */
 import React, { useState } from 'react'
 import ModalContainer from '../modalContainer'
+import PollType from '../pollType'
 import './index.scss'
 import _ from 'lodash'
 
 const PollModalPopups = ({ visible, toggleVisible, handleSubmit }) => {
 	const [data, setData] = useState({
 		question: '',
-	  	options: [{ value: '' }],
+		options: [{ value: '' }],
+		pollTheme: ''
 	});
 	
   const onQuestionChange = (e) => {
@@ -30,6 +32,11 @@ const PollModalPopups = ({ visible, toggleVisible, handleSubmit }) => {
 	  setData({ ...data })
   }
 
+  const selectPollType = (type) => {
+	  data.pollTheme = type
+	  setData({ ...data })
+  }
+
     return (
       <div className="popup-container">
         <ModalContainer visible={visible} closeModal={(e) => toggleVisible(e)}>
@@ -37,36 +44,44 @@ const PollModalPopups = ({ visible, toggleVisible, handleSubmit }) => {
 			  <span className="text-uppercase primary-text fs-15">Add Poll</span>
           </div>
           <div className="plain-container no-full">
-          <div className="overlay-container">
-			<div className="row">
-				<div className="col">
-				<input placeholder="Add Question" type="text" value={data.question} onChange={(e) => onQuestionChange(e)} />
-				</div>
-			</div>
 			{
-				_.map(data.options, (option, idx) => (
-     				<div className="row mt-15" key={idx}>
-						<div className="col">
-							<input placeholder={`Add Option ${idx + 1} `} id={idx} type="text" value={option.value} onChange={(e) => onOptionChange(e, idx)} />
-						</div>
-         </div>
-   				))
+				data.pollTheme === '' ? (<PollType onPollSelect={selectPollType} />) : (<></>)
 			}
-          </div>
-		  <div className="container">
-			<div className="row">
-				<div className="col-md-6">
-					<button type="button" className="btn btn-primary" onClick={() => handleSubmit(data)}>
-					Submit
-					</button>
+			
+			{ data.pollTheme && (
+				<>
+				<div className="overlay-container">
+					<div className="row">
+						<div className="col">
+						<input placeholder="Add Question" type="text" value={data.question} onChange={(e) => onQuestionChange(e)} />
+						</div>
+					</div>
+					{
+						_.map(data.options, (option, idx) => (
+							<div className="row mt-15" key={idx}>
+								<div className="col">
+									<input placeholder={`Add Option ${idx + 1} `} id={idx} type="text" value={option.value} onChange={(e) => onOptionChange(e, idx)} />
+								</div>
+							</div>
+						))
+					}
+    			</div>
+				<div className="container">
+					<div className="row">
+						<div className="col-md-6">
+							<button type="button" className="btn btn-primary" onClick={() => handleSubmit(data)}>
+							Submit
+							</button>
+						</div>
+						<div className="col-md-6">
+							<button type="button" className="btn btn-primary" onClick={() => addMoreOptions()}>
+							Add Options
+							</button>
+					</div>
+					</div>
 				</div>
-				<div className="col-md-6">
-					<button type="button" className="btn btn-primary" onClick={() => addMoreOptions()}>
-					Add Options
-					</button>
-    </div>
-			</div>
-		  </div>
+				</>
+			)}
           </div>
         </ModalContainer>
       </div>

@@ -1,0 +1,14 @@
+.text-align-center{
+    text-align: center !important;
+}
+
+.card-new{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    background-clip: border-box;
+    border: 2px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    cursor: pointer;
+}
