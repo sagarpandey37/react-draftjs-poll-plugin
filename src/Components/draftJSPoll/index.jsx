@@ -10,21 +10,28 @@ const DraftJSPoll = ({ contentState, block }) => {
     const [currData, setData] = useState({ ...contentState.getEntity(entityKey).getData(), selectedValue: '' });
 
     const handleChange = (event) => {
-        currData.selectedValue = event.target.value
-        setData({ ...currData });
+
+        if (event.target.value) {
+            currData.selectedValue = event.target.value
+            setData({ ...currData });
+        }
+        else if (event.target.innerHTML) {
+            currData.selectedValue = event.target.innerHTML
+            setData({ ...currData });
+        }
     }
 
     return (
         <>
-        { currData.pollTheme === 'Bar Chart' 
+        { currData.pollTheme === 'Bars' 
             && (<div className="poll-progress-box">
                 <p className="poll-head text-align-center">{currData.question}</p>
                 <div className="options">
                     {
                         currData.options.map((elem, idx) => (
-                        <div className="bar" value={elem.value} onClick={(e) => handleChange(e)}>
-                            <div className="bar-fill" style={{'width' : '20%'}}>
-                                <span className="bar-label">{`${20}%  `}{elem.value}</span>
+                        <div key={idx} className="bar" onClick={(e) => handleChange(e)}>
+                            <div className={(elem.value === currData.selectedValue ? 'bar-fill' : '')}>
+                                <span className="bar-label">{elem.value}</span>
                             </div>
                         </div>
                         ))

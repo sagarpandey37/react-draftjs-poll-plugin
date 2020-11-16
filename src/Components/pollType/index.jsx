@@ -6,8 +6,8 @@ const PollType = ({ onPollSelect }) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <div className="card-new" onClick={() => onPollSelect('Bar Chart')}>
-                        Bar Chart
+                    <div className="card-new" onClick={() => onPollSelect('Bars')}>
+                        Bars
                     </div>
                 </div>
                 <div className="col-md-6">

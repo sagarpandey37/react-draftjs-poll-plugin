@@ -1,6 +1,6 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
-import {Editor, EditorState, RichUtils, AtomicBlockUtils, convertToRaw } from 'draft-js';
-// import Editor from 'draft-js-plugins-editor'
+import {Editor, EditorState, RichUtils, AtomicBlockUtils,} from 'draft-js';
 import './index.scss'
 import PollModalPopups from '../pollModalPopup'
 import DraftJSPoll from '../draftJSPoll'
@@ -24,9 +24,9 @@ class PollEditor extends React.Component {
 
   pollSubmitHandler = (data) => {
     let newEditorState;
-    const editorState = this.state.editorState
+    const {editorState} = this.state
     const content = editorState.getCurrentContent();
-    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'IMMUTABLE' , data);
+    const contentWithEntity = content.createEntity('DRAFT-JS-POLL', 'IMMUTABLE', data);
     const entityKey = contentWithEntity.getLastCreatedEntityKey();
     newEditorState = EditorState.set(editorState,{currentContent: contentWithEntity});
     newEditorState = RichUtils.toggleBlockType(newEditorState, 'DRAFT-JS-POLL-BLOCK');
@@ -35,7 +35,7 @@ class PollEditor extends React.Component {
   };
 
   getBlockRender = (block) => {
-    if( block.getType() === 'DRAFT-JS-POLL-BLOCK' ){
+    if (block.getType() === 'DRAFT-JS-POLL-BLOCK') {
       return {
         component: DraftJSPoll,
         editable: false,
